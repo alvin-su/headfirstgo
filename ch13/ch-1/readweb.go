@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func responseSize(url string, channel chan Page) {
+func responseSize(url string, channel chan<- Page) {
 	//fmt.Println("Getting:", url)
 	response, err := http.Get(url)
 	if err != nil {
@@ -22,6 +22,7 @@ func responseSize(url string, channel chan Page) {
 	page := Page{url: url, size: len(body)}
 	//channel <- len(body)
 	channel <- page
+	//close(channel)
 }
 
 type Page struct {
